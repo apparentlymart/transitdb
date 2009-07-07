@@ -1,0 +1,18 @@
+
+use strict;
+use warnings;
+use lib "lib";
+use TransitDB::Creator;
+
+my $config_url = shift or die "No configuration file specified\n";
+my $output_file = shift or die "No output file specified\n";
+
+my $creator = TransitDB::Creator->new(
+    config => $config_url,
+    status_cb => sub { print STDERR @_, "\n"; },
+    show_download_progress => 1,
+);
+
+$creator->create_db($output_file);
+
+
